@@ -1,0 +1,40 @@
+*, *::before, *::after
+    box-sizing: border-box
+    
+body 
+    color: #353535
+    font-family: $f_text
+
+#app
+    overflow: hidden
+    position: relative
+    background: $c_bg
+    width: 400px
+    max-width: 95vw
+    min-height: 500px
+    height: 90vh
+    max-height: 700px
+    margin: 5vh auto
+    border-radius: $b_radius
+    box-shadow: $shadow
+    // box-shadow: transparentize($c_bg, .5) 0px 4px 12px
+
+h1
+    font-family: $f_headlines
+
+.f-highlight
+    font-family: $f_headlines
+    font-weight: 600
+    text-align: center
+    font-size: 1.85em
+    padding-top: .25em
+
+.col
+    display: flex
+    flex-direction: column
+
+.font-text
+    font-family: $f_text
+
+.font-headlines
+    font-family: $f_headlines
