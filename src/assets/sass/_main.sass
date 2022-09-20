@@ -1,6 +1,9 @@
 *, *::before, *::after
     box-sizing: border-box
-    
+
+html    
+    font-size: .87rem
+
 body 
     color: #353535
     font-family: $f_text
@@ -12,7 +15,7 @@ body
     width: 400px
     max-width: 95vw
     min-height: 500px
-    height: 90vh
+    height: 97vh
     max-height: 700px
     margin: 5vh auto
     border-radius: $b_radius
@@ -38,3 +41,7 @@ h1
 
 .font-headlines
     font-family: $f_headlines
+
+@media screen and ( min-height: 700px )
+    html
+        font-size: 1rem

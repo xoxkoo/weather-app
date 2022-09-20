@@ -1,11 +1,12 @@
 <template>
-  <AppHeader></AppHeader>
-  <div class="main-content">
+<AppHeader></AppHeader>
+<div class="main-content">
     <img src="./assets/img/27.png" alt="" class="current-weather-img">
     <h1 class="weather-info">{{capitalize(weatherInfo)}}</h1>
     <InfoGroup></InfoGroup>
-  </div>
-  <PartModal></PartModal> 
+</div>
+<PartModal></PartModal> 
+
 </template>
 
 <script>
