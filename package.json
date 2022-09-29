@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "scss": "sass --whatch scss -o css"
+    "scss": "sass --whatch scss -o css",
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
     "axios": "^0.27.2",
