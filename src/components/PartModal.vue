@@ -3,10 +3,7 @@
         <div class="forecast-group">
             <ForecastItem v-for="index in 4" :key="index"></ForecastItem>
         </div>
-        <div class="searchResults-group" :class="{ active: searchResult.length }">
-            <div class="search-item" v-for="result in searchResult" :key="result">{{formatSearchData(result)}}</div>
-        </div>
-        <SearchForm @search="this.searchResult.push($event)" @hide-search-results="searchResult = []"></SearchForm>
+        <SearchForm @form-submited="onFormSubmit($event)"></SearchForm>
     </div>
 </template>
 
@@ -22,16 +19,8 @@ export default {
         }
     },
     methods: {
-        formatSearchData: function(result) {
-
-            setTimeout(() => {
-                this.searchResult = []
-            }, 2000)
-
-            if(result.code == "404") 
-                return result.msg
-            else
-                return `${result.name}, ${result.country}`
+        onFormSubmit: function(data) {
+            this.$emit('change-data', data)
         }
     },
     components: { ForecastItem, SearchForm }
