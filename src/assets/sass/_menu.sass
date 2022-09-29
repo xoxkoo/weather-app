@@ -1,0 +1,90 @@
+/*
+    Code from https://codepen.io/aaroniker/pen/gdyjRg
+    
+.hamburger-icon
+    display: block
+    transform: scale(.8) rotateY(180deg)
+    width: 40px
+    height: 36px
+    position: relative
+    cursor: pointer
+    div 
+        position: absolute
+        height: 4px
+        border-radius: 2px
+        background: $c_dark
+        transition: transform .45s cubic-bezier(.9, -.6, .3, 1.6), width .2s ease .2s
+    
+    input 
+        display: none
+        & + div 
+            top: 50%
+            left: 0
+            margin: -2px 0 0 0
+            width: 40px
+            transform-origin: 50% 50%
+            & + div 
+                top: 2px
+                left: 0
+                width: 20px
+                transform-origin: 0 50%
+                & + div 
+                    bottom: 2px
+                    right: 0
+                    width: 28px
+                    transform-origin: 100% 50%
+                    transform: translate(-12px, 0)        
+        
+        &:checked + div 
+            transform: rotate(-45deg)
+            transition: transform .45s cubic-bezier(.9, -.6, .3, 1.6) .1s
+            & + div 
+                width: 19px
+                transform: translate(6px, 0) rotate(45deg)
+                transition: transform .45s cubic-bezier(.9, -.6, .3, 1.6) .1s, width .2s ease
+                & + div 
+                    width: 19px
+                    transform: translate(-6px, 0) rotate(45deg)
+                    transition: transform .45s cubic-bezier(.9, -.6, .3, 1.6) .1s, width .2s ease
+
+        &:checked ~ .menu
+            opacity: 1
+            transform: translateX(0) scale(1.1) rotateY(180deg)
+                
+.menu
+    padding: 0
+    font-size: 1.2rem
+    position: absolute
+    background: #fff
+    box-shadow: 0 0 15px 5px transparentize(#E5E2FF, .6)
+    box-shadow: $shadow
+
+    top: 2.5em
+    left: 0
+    transform: translateX(100%)
+    
+    opacity: 0
+    border-radius: 19px
+    border: 1px solid $c_dark
+    
+    // z-index: 100
+    transition: .5s cubic-bezier(.9, -.6, .3, 1.6)
+
+    & li 
+        list-style: none
+        transition: .3s
+        border-top: 1px solid $c_light
+
+        &:first-of-type
+            border-top-left-radius: 19px 
+            border-top-right-radius: 19px 
+        &:last-of-type
+            border-bottom-left-radius: 19px 
+            border-bottom-right-radius: 19px 
+
+        &:hover
+            background: $c_light
+
+    & a
+        display: block
+        padding: 1em 1.5em

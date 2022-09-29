@@ -1,10 +1,14 @@
 <template>
-  <form action="#" @submit.prevent="getLocation()">
+  <form action="#" @submit.prevent="submitForm()">
+        <div class="searchResults-group" :class="{ active: showSearchResult && result != {} }">
+            <button type="submit" class="search-item">{{this.result.msg}}</button>
+            <!-- {{this.result.msg}} -->
+        </div>
         <label for="search" class="form-group">
             <img src="../assets/img/location-2969395.png" alt="image" >
             <label for="search" class="label">Enter Location</label>
-            <input v-model="input" type="text" class="input" id="search" name="search" @focus="focusHandler($event)" @focusout="focusHandler($event)">
-            <button class="btn btn-primary" type="submit">search</button>
+            <input v-model="input" type="text" class="input" id="search" name="search" @input="onSearchInput()" @focus="focusHandler($event)" @focusout="focusHandler($event)">
+            <button class="btn btn-primary">search</button>
         </label>
     </form>
 </template>
@@ -17,37 +21,68 @@ export default {
     data() {
         return {
             input: '',
-            apiKey: '0f2db6dd2a3a38ceaa3ebedf2b0112b4',
+            apiKey: process.env.VUE_APP_API_KEY,
+            searchResult: [],
+            result: {},
+            debounce: null,
+            showSearchResult: false
+
         }
     },
+    mounted() {
+        axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Horsens&appid=${this.apiKey}&units=metric`)
+                .then(response => {
+                    this.result = this.extractDataFromLocation(response.data)
+                    this.submitForm()
+                })
+    },
     methods: {
+        onSearchInput() {
+            clearTimeout(this.debounce) 
+            // do request after user stopped typing for some time
+            this.debounce = setTimeout(() => {
+                this.getData()
+            }, 500)
+        },
+        // api request
+        getData() {
+            axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${this.input}&appid=${this.apiKey}&units=metric`)
+                .then(response => {
+                    this.result = this.extractDataFromLocation(response.data)
+                    // this.searchResult.push(this.extractDataFromLocation(response.data))
+                })
+                .catch(err => {
+                    this.result = this.extractDataFromLocation(err.response.data)
+
+                    // this.searchResult.push(this.extractDataFromLocation(err.response.data))
+                })
+        },
+        // move label up and down when user focus on input
         focusHandler(event) {
             const targetName = event.target.name;
             const label = document.querySelector(".label", `for="${targetName}"`);
             if (event.type !== "focusout") {
                 label.classList.add("active");
+                this.showSearchResult = true
             }
             else if (event.target.value == "") {
-                console.log(event.type);
-
                 label.classList.remove("active");
-                this.$emit('hide-search-results', '')
+                this.showSearchResult = false
             }
             else {
-            console.log(event.type);
-
-                this.$emit('hide-search-results', '')
+                this.showSearchResult = false
             }
         },
-        getLocation() {
-            axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${this.input}&appid=${this.apiKey}&units=metric`)
-            .then(response => {
-                this.$emit('search', this.extractDataFromLocation(response.data))
-            })
-            .catch(err => {
-                this.$emit('search', this.extractDataFromLocation(err.response.data))
+        // send data to parent
+        submitForm() {
+            // there was found result, we can show data
+            if(this.result.code === 200) {
+                this.$emit('form-submited', this.result) 
+            }
+            // if(this.searchResult[this.searchResult.length - 1].code === 200) {
+            //     this.$emit('form-submited', this.searchResult[this.searchResult.length - 1]) 
+            // }
 
-            })
         },
         extractDataFromLocation(data) {
             if (data.cod == 404) {
@@ -61,13 +96,39 @@ export default {
                     code: data.cod,
                     name: data.name,
                     country: data.sys.country,
-                    weather: data.weather.main,
-                    wind: data.wind.speed,
+                    image: data.weather[0].main,
+                    weather: data.weather[0].description,
+                    wind: data.wind.speed * 2,
                     temp: data.main.temp,
-                    humidity: data.main.humidity
+                    humidity: data.main.humidity,
+                    msg: `${data.name}, ${data.sys.country}`
                 }
             }
-        }
+        },
+        // formatSearchData() {
+        //         console.log(this.searchResult);
+        //         this.searchResult.forEach(result => {
+        //             console.log(result);
+                    
+        //             // no results were found
+        //             if(result.code == "404") {
+        //                 setTimeout(() => {
+        //                 }, 2000)
+        
+        //                 return result.msg
+        //             }
+        //             // there are results
+        //             else {
+        //                 setTimeout(() => {
+    
+        //                 }, 4000)
+        
+        //                 return 
+        //             }
+        //         })
+
+        //     }
+        // }
     }
 }
 </script>
@@ -119,4 +180,7 @@ export default {
 .btn
     height: 3em
     margin: auto .75em auto .25em
+
+.search-item
+    cursor: pointer
 </style>

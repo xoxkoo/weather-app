@@ -2,18 +2,35 @@
     <header>
         <div class="col">
             <div class="date">{{date}}.</div>
-            <div class="city-name"><img src="../assets/img/location-pin.png" alt="location pin" class="location-pin"> Copenhagen</div>
+            <div class="city-name"><img src="../assets/img/location-pin.png" alt="location pin" class="location-pin">{{city}}</div>
         </div>
 
-        <div class="person">
-            👨‍💻
-        </div>
+        <label class="hamburger-icon">
+            <input type="checkbox">
+            <div></div>
+            <div></div>
+            <div></div>
+            <ul class="menu">
+                <li>
+                    <router-link to="/">Home</router-link>
+                </li>
+                <li>
+                    <router-link to="/weather">Weather</router-link></li>
+                <li>
+                    <router-link to="/about">About</router-link>
+                </li>
+            </ul>
+        </label>
+
     </header>
 </template>
 
 <script>
 export default {
-    name: "AppHeader",
+    name: "WeatherHeader",
+    props: {
+        city: {}
+    },
     data() {
         return {
             date: ''
@@ -46,11 +63,9 @@ header
     color: $c_dark
     font-size: 1.8rem
 
-.person
-    font-size: 3rem
-    border: 1px solid $c_dark
-    border-radius: 10px
-    padding: 0 .2em
+    & img
+        margin-right: .1em
+
 
 .location-pin
     width: 20px

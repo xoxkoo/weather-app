@@ -1,49 +1,54 @@
 <template>
-<AppHeader></AppHeader>
-<div class="main-content">
-    <img src="./assets/img/27.png" alt="" class="current-weather-img">
-    <h1 class="weather-info">{{capitalize(weatherInfo)}}</h1>
-    <InfoGroup></InfoGroup>
-</div>
-<PartModal></PartModal> 
-
+  <router-view @change-data="changeData($event)"></router-view>
 </template>
 
 <script>
-import AppHeader from "@/components/Header.vue"
-import PartModal from "@/components/PartModal.vue"
-import InfoGroup from "./components/InfoGroup.vue"
 
 export default {
   name: 'App',
   data() {
     return {
-      weatherInfo: 'sunny'
+      data: {},
     }
   },
   methods: {
     capitalize: (string) => {
-      return string.charAt(0).toUpperCase() + string.slice(1)
-    } 
-  },
-  components: {
-    AppHeader,
-    PartModal,
-    InfoGroup
-}
+      if(string != "")
+        return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+    lowercase: (string) => {
+      if(string != "")
+        return string.toLowerCase()
+    },
+    changeData(data) {
+      console.log(data);
+      this.data = data
+      this.weatherInfo = data.weather
+      this.weatherImage = require(`./assets/img/${this.lowercase(data.image)}.png`)
+    }
+  }
 }
 </script>
 
 <style lang="sass">
   @import '@/assets/sass/base.sass'
-  .current-weather-img
-    width: auto
-    height: 17vh
-    margin-left: 50%
-    transform: translateX(-50%)
+  header
+    width: 100%
+    display: flex
+    justify-content: space-between
+    padding: 2em 1.5em 1em
+  .date
+    color: lighten($c_dark, 35)
+    
+  .city-name
+    color: $c_dark
+    font-size: 1.8rem
 
-  .weather-info
-    font-size: 2.5rem
-    text-align: center
-    font-weight: 600
+    & img
+        margin-right: .1em
+
+
+  .location-pin
+      width: 20px
+      transform: rotateY(174deg)
 </style>
