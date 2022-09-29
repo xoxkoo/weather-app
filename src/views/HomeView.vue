@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="sass">
-  @import '@/assets/sass/_variables.sass'
+  @import '@/assets/sass/variables'
   .illustration 
     margin-top: 1em
     width: 80%

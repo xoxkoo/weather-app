@@ -50,12 +50,19 @@ export default {
                 .then(response => {
                     this.result = this.extractDataFromLocation(response.data)
                     // this.searchResult.push(this.extractDataFromLocation(response.data))
+                    this.getForecast()
                 })
                 .catch(err => {
                     this.result = this.extractDataFromLocation(err.response.data)
 
                     // this.searchResult.push(this.extractDataFromLocation(err.response.data))
                 })
+        },
+        getForecast() {
+            axios.get(`https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${this.input}&appid=${this.apiKey}&units=metric`)
+            .then(response => {
+                console.log(response);
+            })
         },
         // move label up and down when user focus on input
         focusHandler(event) {
@@ -85,6 +92,7 @@ export default {
 
         },
         extractDataFromLocation(data) {
+            console.log(data);
             if (data.cod == 404) {
                 return {
                     code: data.cod,
@@ -104,36 +112,14 @@ export default {
                     msg: `${data.name}, ${data.sys.country}`
                 }
             }
-        },
-        // formatSearchData() {
-        //         console.log(this.searchResult);
-        //         this.searchResult.forEach(result => {
-        //             console.log(result);
-                    
-        //             // no results were found
-        //             if(result.code == "404") {
-        //                 setTimeout(() => {
-        //                 }, 2000)
-        
-        //                 return result.msg
-        //             }
-        //             // there are results
-        //             else {
-        //                 setTimeout(() => {
-    
-        //                 }, 4000)
-        
-        //                 return 
-        //             }
-        //         })
-
-        //     }
-        // }
+        }
     }
 }
 </script>
 
 <style lang="sass">
+@import "@/assets/sass/_variables.sass"
+
 .form-group
     font-size: 1.075rem
     display: flex
@@ -155,7 +141,8 @@ export default {
         display: inline-block
         // position: absolute
         z-index: 1
-        height: 4em
+        height: 2.5em
+        margin: .5em
 .input
     margin: auto
     height: 100%
@@ -181,6 +168,36 @@ export default {
     height: 3em
     margin: auto .75em auto .25em
 
+.searchResults-group
+    opacity: 0
+    transform: translateY(20px)
+    position: absolute
+    bottom: 6.9em
+    width: calc( 100% - 3em )
+    background: $c_bg
+    padding: .5em .55em
+    border-radius: 15px
+    box-shadow: $shadow
+    z-index: 0
+    transition: .3s
+    &.active
+        z-index: 10 
+        transform: translateY(0)
+        opacity: 1
+
 .search-item
+    width: 100%
+    margin: auto
+    background: #fff
+    padding: 1.25em
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px
+    border-radius: 11px
+    margin: .5em 0
+    // background: lighten($c_dark, 50)
+    // background: $c_bg
+    transition: .3s
     cursor: pointer
+
+    &:hover
+        background: lighten($c_bg, 18)
 </style>
