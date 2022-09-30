@@ -142,7 +142,7 @@ export default {
         // position: absolute
         z-index: 1
         height: 2.5em
-        margin: .5em
+        margin: .75em .5em
 .input
     margin: auto
     height: 100%

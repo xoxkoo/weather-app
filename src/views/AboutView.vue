@@ -1,12 +1,12 @@
 <template>
   <AppHeader></AppHeader>
   <div class="container about">
-    <p>Api from: <a class="link" href="https://openweathermap.org">OpenWeatherMap</a></p>
-    <p><img src="../assets/img/location-2969395.png" alt="location" class="icon"> icon from: <a href="https://iconscout.com/3d/location-3543264" class="link">iconscout</a></p>
-    <p><img src="../assets/img/location-pin.png" alt="location" class="icon"> icon from: <a href="https://iconscout.com/3d/location-3543018" class="link">iconscout</a></p>
+    <p>Api from: <a class="link" href="https://openweathermap.org" target="_blank">OpenWeatherMap</a></p>
+    <p><img src="../assets/img/location-2969395.png" alt="location" class="icon"> icon from: <a href="https://iconscout.com/3d/location-3543264" target="_blank" class="link">iconscout</a></p>
+    <p><img src="../assets/img/location-pin.png" alt="location" class="icon"> icon from: <a href="https://iconscout.com/3d/location-3543018" target="_blank" class="link">iconscout</a></p>
   </div>
   <footer>
-    <p>designed by me. &copy; <a href="adur.glitch.me" class="link">xoxo</a></p>
+    <p>designed by me. &copy; <a href="http://adur.glitch.me" class="link" target="_blank">xoxo</a></p>
   </footer>
 </template>
 

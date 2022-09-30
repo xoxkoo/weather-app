@@ -21,7 +21,6 @@ export default {
         return string.toLowerCase()
     },
     changeData(data) {
-      console.log(data);
       this.data = data
       this.weatherInfo = data.weather
       this.weatherImage = require(`./assets/img/${this.lowercase(data.image)}.png`)

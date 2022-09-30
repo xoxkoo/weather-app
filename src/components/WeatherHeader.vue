@@ -57,7 +57,7 @@ header
     justify-content: space-between
     padding: 2em 1.5em 1em
 .date
-    color: lighten($c_dark, 35)
+    color: lighten($c_dark, 25)
     
 .city-name
     color: $c_dark

@@ -11,7 +11,9 @@ body
 #app
     overflow: hidden
     position: relative
-    background: $c_bg
+    background-color: #8BC6EC 
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)
+
     width: 400px
     max-width: 95vw
     min-height: 500px
@@ -30,8 +32,18 @@ h1
 
 
 .link
-    text-decoration: underline
-    color: $c_highlight
+    // text-decoration: underline
+    // color: $c_highlight
+    margin: 0 .2em
+    padding: .2em .3em
+    background: $c_light
+    border-radius: 8px
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px
+    transition: .3s
+
+    &:hover,
+    &:focus
+        background: #fff !important
 
 a
     color: inherit
